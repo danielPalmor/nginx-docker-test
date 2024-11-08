@@ -42,4 +42,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: test-results
-        path: /app/succeeded
+        path: |
+          /app/succeeded
+          /app/fail
