@@ -26,7 +26,11 @@ jobs:
     # Run tests inside the 'test' container
     - name: Run tests inside the test container
       run: |
-        docker compose exec test python3 /app/test.py
+          if ! docker compose exec test python3 /app/test.py; then
+            echo "Test script failed. Capturing logs..."
+            docker compose logs test
+            exit 1
+          fi
 
     # Check test result and create artifact
     - name: Check test result and create artifact
