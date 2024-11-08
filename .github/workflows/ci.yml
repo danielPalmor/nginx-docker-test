@@ -26,7 +26,6 @@ jobs:
     # Run tests inside the 'test' container
     - name: Run tests inside the test container
       run: |
-        sleep 5
         docker compose exec test python3 /app/test.py
 
     # Check test result and create artifact
