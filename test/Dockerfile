@@ -1,6 +1,6 @@
 FROM python:3.12-alpine
 
-RUN pip install requests os
+RUN pip install requests
 
 COPY test.py /app/test.py
 

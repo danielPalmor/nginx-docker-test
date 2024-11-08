@@ -1,5 +1,4 @@
 import requests
-import os
 
 
 # Define endpoints
@@ -18,20 +17,27 @@ def test_html_server():
 
 
 def test_error_server():
-    RESULTS_DIR = '/test-results'
+    # Get request from endpoint
+    response = requests.get(ERROR_SERVER_URL)
+
+    # Define expected parameters
+    expected_status_code, expected_content = 500, 'Internal Server Error'
     
+    assert response.status_code == expected_status_code, f'got: {response.status_code}. expected: {expected_status_code}'
+    assert 'Internal Server Error' in response.text, f'got: {response.text}. expected: {expected_content}'
+
+
+if __name__ == "__main__":
     try:
         # Run Tests
         test_html_server()
         test_error_server()
 
         # Write to artifact that tests passed
-        with open(os.path.join(RESULTS_DIR, 'succeeded'), 'w') as f:
+        with open('succeeded', 'w') as f:
             f.write("All tests passed")
-        exit(0)
 
     except AssertionError as e:
         # Write to artifact that tests failed
-        with open(os.path.join(RESULTS_DIR, 'fail'), 'w') as f:
+        with open('fail', 'w') as f:
             f.write(f"Tests failed: {e}")
-        exit(1)

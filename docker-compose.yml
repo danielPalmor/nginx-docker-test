@@ -10,14 +10,12 @@ services:
       - 8081:8081
 
   test:
-    image: python:3.12-alpine
-    container_name: test_servers
     mem_limit: 2g
     mem_reservation: 1g
+    image: python:3.12-alpine
+    container_name: test_servers
     build:
       context: ./test
       dockerfile: Dockerfile
-    volumes:
-      - ./test-results:/test-results
     depends_on:
       - nginx
