@@ -9,9 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v4
-    
+
+    # Set up Docker
     - name: Set up Docker
       uses: docker/setup-buildx-action@v3
 
@@ -21,24 +23,29 @@ jobs:
         docker compose build
         docker compose up -d
 
-    # Create a directory for test results
-    - name: Create results directory
-      run: mkdir -p test-results
-      
-    # Run tests and save results directly to host machine
-    - name: Run tests
+    # Wait for the 'test' container to be ready
+    - name: Wait for the test container to be ready
       run: |
-        docker compose exec -T test python3 /app/test.py
-        if [ $? -eq 0 ]; then
-          echo "Test passed!" > test-results/succeeded
+        # Simple wait to ensure the containers are up before running the tests
+        sleep 10
+
+    # Run tests inside the 'test' container
+    - name: Run tests inside the test container
+      run: |
+        docker compose exec test python3 /app/test.py
+
+    # Check test result and create artifact
+    - name: Check test result and create artifact
+      run: |
+        if docker compose exec test test -f /app/succeeded; then
+          echo "Test passed!" > /app/succeeded
         else
-          echo "Test failed!" > test-results/fail
+          echo "Test failed!" > /app/fail
         fi
-      
+
     # Upload result artifact
     - name: Upload result artifact
-      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: test-results
-        path: test-results/
+        path: /app/succeeded
