@@ -4,6 +4,8 @@ COPY requirements.txt requirements.txt
 
 RUN pip install -r requirements.txt
 
-COPY test.py /app/test.py
+WORKDIR /app
 
-CMD ["python3", "/app/test.py"]
+COPY test.py test.py
+
+CMD ["python3", "test.py"]
