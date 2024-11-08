@@ -26,15 +26,15 @@ jobs:
     # Run tests inside the 'test' container
     - name: Run tests inside the test container
       run: |
-        docker compose exec test python3 /app/test.py
+        docker compose exec test python3 test.py
 
     # Check test result and create artifact
     - name: Check test result and create artifact
       run: |
-        if docker compose exec test test -f /app/succeeded; then
-          echo "Test passed!" > /app/succeeded
+        if docker compose exec test test -f succeeded; then
+          echo "Test passed!" > succeeded
         else
-          echo "Test failed!" > /app/fail
+          echo "Test failed!" > fail
         fi
 
     # Upload result artifact
