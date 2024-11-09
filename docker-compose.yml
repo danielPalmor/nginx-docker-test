@@ -1,6 +1,5 @@
 services:
   nginx:
-    image: ubuntu:latest
     container_name: nginx_servers
     build:
       context: ./nginx
@@ -10,7 +9,6 @@ services:
       - 8081:8081
 
   test:
-    image: python:3.12-alpine
     container_name: test_servers
     build:
       context: ./test
