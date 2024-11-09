@@ -21,10 +21,15 @@ jobs:
       run: |
         docker compose exec test python3 test.py
 
+    - name: Copy test result from container to runner
+      run: >
+        docker compose cp test:app/succeeded ./succeeded || 
+        docker compose cp test:app/fail ./fail
+
     - name: Upload result artifact
       uses: actions/upload-artifact@v4
       with:
-        name: test-results
+        name: tests-result
         path: |
-          app/succeeded
-          app/fail
+          succeeded
+          fail

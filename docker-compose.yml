@@ -9,7 +9,7 @@ services:
       - 8081:8081
 
   test:
-    container_name: test_servers
+    container_name: test_server
     build:
       context: ./test
       dockerfile: Dockerfile
