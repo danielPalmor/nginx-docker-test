@@ -13,6 +13,6 @@ services:
     build:
       context: ./test
       dockerfile: Dockerfile
-    entrypoint: sleep 60
+    entrypoint: sleep 20
     depends_on:
       - nginx
