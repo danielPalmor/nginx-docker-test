@@ -26,5 +26,5 @@ jobs:
       with:
         name: test-results
         path: |
-          succeeded
-          fail
+          app/succeeded
+          app/fail
