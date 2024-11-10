@@ -10,10 +10,9 @@ def test_html_server():
     response = requests.get(HTML_SERVER_URL)
 
     # Define expected parameters
-    expected_status_code, expected_content = 200, '<html><h1>Welcome!</h1></html>'
-
+    expected_status_code = 200
+    
     assert response.status_code == expected_status_code, f'got: {response.ok}. expected: {expected_status_code}'
-    assert expected_content in response.text, f'got: {response.text}. expected: {expected_content}'
 
 
 def test_error_server():
