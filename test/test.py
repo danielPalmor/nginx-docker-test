@@ -24,7 +24,7 @@ def test_error_server():
     expected_status_code, expected_content = 500, 'Internal Server Error'
     
     assert response.status_code == expected_status_code, f'got: {response.status_code}. expected: {expected_status_code}'
-    assert 'Internal Server Error' in response.text, f'got: {response.text}. expected: {expected_content}'
+    assert expected_content in response.text, f'got: {response.text}. expected: {expected_content}'
 
 
 if __name__ == "__main__":
