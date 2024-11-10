@@ -11,8 +11,8 @@ def test_html_server():
 
     # Define expected parameters
     expected_status_code = 200
-    
-    assert response.status_code == expected_status_code, f'got: {response.ok}. expected: {expected_status_code}'
+
+    assert response.status_code == expected_status_code, f'got: {response.status_code}. expected: {expected_status_code}'
 
 
 def test_error_server():
